@@ -30,7 +30,7 @@ claude-workspace/
 ├── 📂 docs/
 │   └── 📊 sample_sales.csv   연습용 매출 샘플 데이터
 │
-└── 📂 portfolio/             🔒 내 컴퓨터에만 있음 (GitHub 제외)
+└── 📂 portfolio/             포트폴리오 (다크 테마, 전화번호는 가림)
     └── 🌐 index.html         포트폴리오 웹페이지
 ```
 
@@ -54,7 +54,6 @@ claude-workspace/
 | 대상 | 이유 |
 |---|---|
 | `.env`, `*.key`, `*.pem`, `id_rsa` 등 | 비밀 키·인증 정보 |
-| `portfolio/` | 전화번호 포함 |
 | `docs/resume.pdf` | 강의 샘플 자료 (이메일 워터마크) |
 | `tasks/downloads-move-log.csv` | 다운로드 파일 이름 목록 (개인정보) |
 | `*.bak` | 백업 파일 |
@@ -102,4 +101,4 @@ git push
 
 ---
 
-*마지막 수정: 2026-11-06*
+*마지막 수정: 2026-11-06 (포트폴리오 추가)*

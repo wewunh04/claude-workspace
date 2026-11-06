@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>은호 포트폴리오</title>
+  <!-- 한글 웹폰트 Pretendard (인터넷 연결이 없으면 기본 글꼴로 보입니다) -->
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <style>
+    /* 항상 다크 모드 (컴퓨터 설정과 상관없이 어두운 배경) */
+    :root {
+      color-scheme: dark;
+      --bg: #111312;
+      --surface: #1a1d1c;
+      --text: #ecebe6;
+      --muted: #9c9b95;
+      --line: #2a2e2c;
+      --accent: #5eead4;
+      --accent-soft: #16302b;
+      --shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.7);
+      --thumb-1: linear-gradient(135deg, #0f766e, #34d399);
+      --thumb-2: linear-gradient(135deg, #1e3a5f, #3b82f6);
+      --thumb-3: linear-gradient(135deg, #9a3412, #f59e0b);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      word-break: keep-all;
+    }
+
+    .wrap {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ── 상단 메뉴 ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    nav .wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 60px;
+    }
+
+    nav .logo {
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    nav .logo span {
+      color: var(--accent);
+    }
+
+    nav ul {
+      display: flex;
+      gap: 22px;
+      list-style: none;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      transition: color .2s;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    /* ── 소개 ── */
+    .hero {
+      padding: 110px 0 90px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 520px;
+      height: 520px;
+      right: -160px;
+      top: -120px;
+      background: radial-gradient(circle, var(--accent-soft) 0%, transparent 70%);
+    }
+
+    .hero .role {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+    }
+
+    .hero .role::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 8vw, 64px);
+      font-weight: 800;
+      line-height: 1.18;
+      letter-spacing: -0.035em;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero p {
+      font-size: 19px;
+      color: var(--muted);
+      max-width: 580px;
+    }
+
+    .hero .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 36px;
+    }
+
+    /* ── 버튼 ── */
+    .btn {
+      display: inline-block;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+      padding: 12px 22px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: transform .2s, box-shadow .2s, border-color .2s, color .2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+
+    .btn.primary:hover {
+      color: var(--bg);
+    }
+
+    /* ── 공통 섹션 ── */
+    section {
+      padding: 80px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .sec-head {
+      margin-bottom: 40px;
+    }
+
+    .sec-head .eyebrow {
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .sec-head h2 {
+      font-size: clamp(26px, 5vw, 34px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-top: 6px;
+    }
+
+    /* ── 스킬 ── */
+    .skills {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .skill {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 24px;
+      transition: transform .25s, box-shadow .25s, border-color .25s;
+    }
+
+    .skill:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+      border-color: var(--accent);
+    }
+
+    .skill .ico {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: var(--accent-soft);
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .skill h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tags span {
+      font-size: 13px;
+      border: 1px solid var(--line);
+      padding: 3px 11px;
+      border-radius: 999px;
+      color: var(--muted);
+      background: var(--bg);
+    }
+
+    /* ── 프로젝트 카드 ── */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .project {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform .25s, box-shadow .25s;
+    }
+
+    .project:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow);
+    }
+
+    .project .thumb {
+      aspect-ratio: 16 / 10;
+      display: grid;
+      place-items: center;
+      color: rgba(255, 255, 255, .92);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project .thumb svg {
+      width: 56px;
+      height: 56px;
+      transition: transform .35s;
+    }
+
+    .project:hover .thumb svg {
+      transform: scale(1.12) rotate(-4deg);
+    }
+
+    .project .thumb::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 80% 20%, rgba(255, 255, 255, .25), transparent 50%);
+    }
+
+    .project .body {
+      padding: 20px 22px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .project .year {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .project h3 {
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .project p {
+      font-size: 15px;
+      color: var(--muted);
+      flex: 1;
+    }
+
+    .project .tags {
+      margin-top: 6px;
+    }
+
+    /* ── 경력 ── */
+    .job {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 24px;
+      padding: 28px 0;
+    }
+
+    .job+.job {
+      border-top: 1px dashed var(--line);
+    }
+
+    .job .date {
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .job h3 {
+      font-size: 19px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .job .org {
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+
+    .job ul {
+      padding-left: 18px;
+      margin-bottom: 12px;
+    }
+
+    .job li {
+      margin-bottom: 4px;
+    }
+
+    /* ── 학력 ── */
+    .edu {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .edu .ico {
+      flex: none;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .edu h3 {
+      font-size: 19px;
+      font-weight: 700;
+    }
+
+    .edu .meta {
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+
+    .edu ul {
+      padding-left: 18px;
+    }
+
+    /* ── 연락처 ── */
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-card::before {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      right: -100px;
+      bottom: -140px;
+      background: radial-gradient(circle, var(--accent-soft), transparent 70%);
+    }
+
+    .contact-card>* {
+      position: relative;
+    }
+
+    .contact-card p {
+      color: var(--muted);
+      margin-bottom: 16px;
+      font-size: 17px;
+    }
+
+    .phone {
+      font-size: clamp(26px, 6vw, 38px);
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      margin-bottom: 24px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .contact-card .note {
+      font-size: 14px;
+      margin-bottom: 0;
+    }
+
+    footer {
+      padding: 40px 0 56px;
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
+    }
+
+    /* ── 스크롤 등장 효과 (자바스크립트가 켜져 있을 때만) ── */
+    .js .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .js .reveal.show {
+      opacity: 1;
+      transform: none;
+    }
+
+    .js .reveal.d1 {
+      transition-delay: .1s;
+    }
+
+    .js .reveal.d2 {
+      transition-delay: .2s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .js .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      * {
+        transition: none !important;
+      }
+    }
+
+    /* ── 태블릿 ── */
+    @media (max-width: 820px) {
+      .skills {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .projects {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* ── 휴대폰 ── */
+    @media (max-width: 600px) {
+      .wrap {
+        padding: 0 16px;
+      }
+
+      nav ul {
+        gap: 14px;
+      }
+
+      nav a {
+        font-size: 14px;
+      }
+
+      .hero {
+        padding: 72px 0 56px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      section {
+        padding: 56px 0;
+      }
+
+      .skills,
+      .projects {
+        grid-template-columns: 1fr;
+      }
+
+      .job {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      .edu {
+        flex-direction: column;
+        padding: 24px;
+      }
+
+      .contact-card {
+        padding: 28px 24px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      nav .nav-extra {
+        display: none;
+      }
+    }
+  </style>
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+
+<body>
+
+  <nav>
+    <div class="wrap">
+      <a class="logo" href="#top">은호<span>.</span></a>
+      <ul>
+        <li class="nav-extra"><a href="#skills">스킬</a></li>
+        <li><a href="#projects">프로젝트</a></li>
+        <li><a href="#experience">경력</a></li>
+        <li><a href="#contact">연락처</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="wrap">
+      <span class="role reveal">대학생</span>
+      <h1 class="reveal d1">배우고, 만들고,<br><em>자동화하는</em> 은호입니다.</h1>
+      <p class="reveal d2">새로운 도구를 직접 써 보며 배우는 걸 좋아하는 대학생입니다. 요즘은 AI로 반복 작업을 자동화하는 데 빠져 있고, 작은 문제를 하나씩 풀어 가며 경험을 쌓고
+        있습니다.</p>
+      <div class="actions reveal d2">
+        <a class="btn primary" href="#contact">연락하기</a>
+        <a class="btn" href="#projects">프로젝트 보기</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ✏️ 스킬은 예시입니다. 실제 다룰 줄 아는 것으로 바꿔 쓰세요. -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="eyebrow">Skills</div>
+        <h2>할 수 있는 것들</h2>
+      </div>
+      <div class="skills">
+        <div class="skill reveal">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z" />
+            </svg></div>
+          <h3>기획 · 마케팅</h3>
+          <div class="tags"><span>콘텐츠 기획</span><span>SNS 운영</span><span>행사 기획</span><span>카피라이팅</span></div>
+        </div>
+        <div class="skill reveal d1">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="3" />
+              <path d="M3 9h18M9 21V9" />
+            </svg></div>
+          <h3>도구</h3>
+          <div class="tags"><span>Notion</span><span>Canva</span><span>Excel</span><span>Google 스프레드시트</span></div>
+        </div>
+        <div class="skill reveal d2">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 18l6-6-6-6M8 6l-6 6 6 6" />
+            </svg></div>
+          <h3>AI · 자동화</h3>
+          <div class="tags"><span>Claude Code</span><span>PowerShell 기초</span><span>HTML/CSS 기초</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="eyebrow">Projects</div>
+        <h2>직접 만든 것들</h2>
+      </div>
+      <div class="projects">
+        <article class="project reveal">
+          <div class="thumb" style="background: var(--thumb-1)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <path d="M8 13h8M8 16h5" />
+            </svg>
+          </div>
+          <div class="body">
+            <div class="year">2026</div>
+            <h3>다운로드 폴더 자동 정리</h3>
+            <p>파일 450여 개를 이미지·문서·기타로 자동 분류하고, 기록을 남겨 언제든 되돌릴 수 있게 만들었어요.</p>
+            <div class="tags"><span>Claude Code</span><span>PowerShell</span></div>
+          </div>
+        </article>
+        <article class="project reveal d1">
+          <div class="thumb" style="background: var(--thumb-2)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <path d="M2 8h20M5.5 6h.01M8 6h.01M6 12h7M6 15h4" />
+            </svg>
+          </div>
+          <div class="body">
+            <div class="year">2026</div>
+            <h3>포트폴리오 웹사이트</h3>
+            <p>지금 보고 계신 이 페이지예요. 휴대폰·PC 모두에서 보기 좋은 다크 테마로 만들었어요.</p>
+            <div class="tags"><span>HTML</span><span>CSS</span><span>반응형</span></div>
+          </div>
+        </article>
+        <!-- ✏️ 아래 카드는 예시입니다 -->
+        <article class="project reveal d2">
+          <div class="thumb" style="background: var(--thumb-3)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z" />
+              <path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" />
+            </svg>
+          </div>
+          <div class="body">
+            <div class="year">2025</div>
+            <h3>동아리 신입 모집 캠페인</h3>
+            <p>인스타그램 카드뉴스와 포스터를 기획·제작해 신입 회원 모집 홍보를 진행했어요.</p>
+            <div class="tags"><span>Canva</span><span>SNS</span><span>카피라이팅</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✏️ 경력 1·2번은 예시입니다. 실제 경험으로 바꿔 쓰세요. -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="eyebrow">Experience</div>
+        <h2>경력</h2>
+      </div>
+
+      <article class="job reveal">
+        <div class="date">2026.07 – 2026.08</div>
+        <div>
+          <h3>콘텐츠 마케팅 인턴</h3>
+          <div class="org">스타트업 ○○랩</div>
+          <ul>
+            <li>회사 블로그·인스타그램 콘텐츠 20여 건 기획 및 작성</li>
+            <li>게시물별 반응 데이터를 정리해 주간 리포트 작성</li>
+          </ul>
+          <div class="tags"><span>콘텐츠 기획</span><span>SNS</span><span>데이터 정리</span></div>
+        </div>
+      </article>
+
+      <article class="job reveal">
+        <div class="date">2025.03 – 2026.02</div>
+        <div>
+          <h3>기획부장</h3>
+          <div class="org">교내 학술 동아리</div>
+          <ul>
+            <li>정기 세미나 10회와 외부 연사 초청 행사 2회 운영</li>
+            <li>신입 회원 모집 홍보를 맡아 지원자 수를 전년 대비 늘림</li>
+          </ul>
+          <div class="tags"><span>행사 기획</span><span>팀워크</span><span>홍보</span></div>
+        </div>
+      </article>
+
+      <article class="job reveal">
+        <div class="date">2026.11 – 현재</div>
+        <div>
+          <h3>개인 프로젝트 · AI 업무 자동화</h3>
+          <div class="org">Claude Code 활용</div>
+          <ul>
+            <li>파일 450여 개가 쌓인 다운로드 폴더를 종류별로 자동 정리하고, 되돌리기 기능까지 구성</li>
+            <li>보안 규칙과 작업 기록 방식을 직접 정해 안전하게 작업하는 환경을 만듦</li>
+          </ul>
+          <div class="tags"><span>Claude Code</span><span>자동화</span><span>보안 습관</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ✏️ 학력은 예시입니다. 학교·학과·기간을 직접 채워 주세요. -->
+  <section id="education">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="eyebrow">Education</div>
+        <h2>학력</h2>
+      </div>
+      <div class="edu reveal">
+        <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10L12 5 2 10l10 5 10-5z" />
+            <path d="M6 12v5c3 2 9 2 12 0v-5" />
+          </svg></div>
+        <div>
+          <h3>전주대학교 회계세무학과</h3>
+          <div class="meta">재학 중 · 20○○.03 입학</div>
+          <ul>
+            <li>주요 수강: 마케팅원론, 소비자 행동론, 데이터 분석 기초</li>
+            <li>교내 학술 동아리 기획부장 (2025)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="eyebrow">Contact</div>
+        <h2>연락처</h2>
+      </div>
+      <div class="contact-card reveal">
+        <p>함께 일하거나 이야기 나누고 싶다면 편하게 연락 주세요.</p>
+        <div class="phone">010-****-****</div>
+        <p class="note">개인정보 보호를 위해 번호 일부를 가렸어요. 전체 번호는 요청하시면 알려드릴게요.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>© 2026 은호</footer>
+
+  <script>
+    // 스크롤하면 내용이 서서히 나타나는 효과
+    const items = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      items.forEach((el) => io.observe(el));
+    } else {
+      items.forEach((el) => el.classList.add('show'));
+    }
+  </script>
+</body>
+
+</html>
