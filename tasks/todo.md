@@ -159,15 +159,31 @@
 
 ---
 
-## 2026-11-06 — 포트폴리오 다크모드 (브랜치 작업)  (계획 · 승인 대기)
+## 2026-11-06 — 포트폴리오 다크모드 (브랜치 작업)  ✅
 
 ### ❓ 결정 필요
 - `portfolio/`는 `.gitignore`로 제외 중(전화번호) → git에 올리려면 제외를 풀어야 함
 
 ### 단계
-- [ ] 1. 아직 안 올린 작업 기록(todo/progress) 먼저 main에 커밋
-- [ ] 2. 새 브랜치 `feature/dark-mode` 만들기
-- [ ] 3. (결정에 따라) `.gitignore` 수정 / 전화번호 처리
-- [ ] 4. `portfolio/index.html` 다크 배경 적용 (수정 전 `.bak` 백업)
-- [ ] 5. 스크린샷으로 PC·휴대폰 확인 → 브라우저로 열어 보여주기
-- [ ] 6. 확인되면 main에 머지 → GitHub push → 저장소에서 확인 → progress 기록
+- [x] 1. 아직 안 올린 작업 기록(todo/progress) 먼저 main에 커밋
+- [x] 2. 새 브랜치 `feature/dark-mode` 만들기
+- [x] 3. (결정에 따라) `.gitignore` 수정 / 전화번호 처리
+- [x] 4. `portfolio/index.html` 다크 배경 적용 (수정 전 `.bak` 백업)
+- [x] 5. 스크린샷으로 PC·휴대폰 확인 → 브라우저로 열어 보여주기
+- [x] 6. 확인되면 main에 머지 → GitHub push → 저장소에서 확인 → progress 기록
+
+---
+
+## 2026-11-06 — 포트폴리오 Vercel 배포 준비  ✅
+배포(Vercel 연결·Deploy 버튼)는 은호가 직접. Claude는 준비만.
+
+### 단계
+- [x] 1. `portfolio/vercel.json` — 깔끔한 주소, 보안 헤더 설정
+- [x] 2. `portfolio/.vercelignore` — `*.bak` 백업(진짜 번호 포함)이 배포되지 않게 이중 차단
+- [x] 3. `index.html`에 링크 미리보기 정보(설명·제목)와 탭 아이콘 추가
+- [x] 4. `portfolio/DEPLOY.md` — Vercel 화면 순서대로 따라 하는 배포 안내서 (Root Directory = `portfolio` 핵심)
+- [x] 5. 로컬 확인 → 커밋 → GitHub push → progress 기록
+
+### ⚠️ 알아둘 것
+- 배포하면 포트폴리오 페이지가 **인터넷에 공개**됨 (이름 은호, 전주대학교 회계세무학과, 예시 경력 등)
+- Root Directory를 `portfolio`로 지정하면 CLAUDE.md·SECURITY.md 등 다른 파일은 공개되지 않음

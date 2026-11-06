@@ -58,3 +58,15 @@
 - `.gitignore` 작성: 비밀 키 패턴 + 개인정보 파일(resume.pdf, portfolio/, downloads-move-log.csv) + *.bak 제외
 - README.md 정리 (기존본 → README.md.bak), progress.md 전화번호 마스킹
 - 업로드 전 민감정보 재검사 통과, GitHub에서 PRIVATE·파일 11개 확인함
+
+## 2026-11-06 — 포트폴리오 다크모드 (브랜치 → main 머지)
+- 브랜치 `feature/dark-mode`에서 작업 → main에 머지 → GitHub push 완료
+- 항상 다크 테마(컴퓨터가 밝은 모드여도 어둡게) — 밝은 모드 강제 스크린샷으로 확인
+- 전화번호 010-****-**** 로 가림, 전화·문자·복사 버튼 제거 (진짜 번호는 `index.html.before-dark.bak`에만, 업로드 제외)
+- `.gitignore`에서 portfolio/ 제외 해제, README 반영
+
+## 2026-11-06 — 포트폴리오 Vercel 배포 준비 (배포는 은호가 직접)
+- 공개용으로 이름 박*호, 학교 전*대학교 회계세무학과로 가림 (원본은 `index.html.before-deploy.bak`, 업로드·배포 제외)
+- `portfolio/vercel.json`(깔끔한 주소·보안 헤더), `.vercelignore`(*.bak·DEPLOY.md 배포 제외) 추가
+- 링크 미리보기(description·og) + 탭 아이콘 추가
+- `portfolio/DEPLOY.md` 배포 안내서 — 핵심: Vercel Root Directory = `portfolio`
