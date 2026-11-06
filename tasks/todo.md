@@ -141,7 +141,7 @@
 
 ---
 
-## 2026-11-06 — claude-workspace GitHub 업로드  (계획 · 승인 대기)
+## 2026-11-06 — claude-workspace GitHub 업로드  ✅
 
 ### 민감정보 점검 결과
 - ✅ API 키·토큰·비밀번호·웹훅 주소: **없음** (`send_discord.py`는 `.secrets\.env`에서 읽음)
@@ -150,9 +150,24 @@
 - ⚠️ `docs/resume.pdf`: 강의 자료 샘플(2.2MB) + 내 이메일 워터마크
 
 ### 단계
-- [ ] 1. `.gitignore` 작성 — `.env`, `*.key`, `*.pem`, `id_rsa*`, `credentials*`, `*.bak`, `__pycache__/`, `desktop.ini` 등 + 결정한 제외 파일
-- [ ] 2. `README.md` 정리 — 전체 폴더 구조(docs·portfolio·scripts·weather 추가) 반영 (기존본은 `README.md.bak`으로 백업, `.bak`은 업로드 제외)
-- [ ] 3. `git init` → `git add` → 올라갈 파일 목록 확인 (민감 파일 없는지 재확인)
-- [ ] 4. 커밋 "Initial setup"
-- [ ] 5. `gh repo create claude-workspace --private` 로 비공개 저장소 만들고 push
-- [ ] 6. 비공개 여부·파일 목록 GitHub에서 확인 → progress 기록
+- [x] 1. `.gitignore` 작성 — `.env`, `*.key`, `*.pem`, `id_rsa*`, `credentials*`, `*.bak`, `__pycache__/`, `desktop.ini` 등 + 결정한 제외 파일
+- [x] 2. `README.md` 정리 — 전체 폴더 구조(docs·portfolio·scripts·weather 추가) 반영 (기존본은 `README.md.bak`으로 백업, `.bak`은 업로드 제외)
+- [x] 3. `git init` → `git add` → 올라갈 파일 목록 확인 (민감 파일 없는지 재확인)
+- [x] 4. 커밋 "Initial setup"
+- [x] 5. `gh repo create claude-workspace --private` 로 비공개 저장소 만들고 push
+- [x] 6. 비공개 여부·파일 목록 GitHub에서 확인 → progress 기록
+
+---
+
+## 2026-11-06 — 포트폴리오 다크모드 (브랜치 작업)  (계획 · 승인 대기)
+
+### ❓ 결정 필요
+- `portfolio/`는 `.gitignore`로 제외 중(전화번호) → git에 올리려면 제외를 풀어야 함
+
+### 단계
+- [ ] 1. 아직 안 올린 작업 기록(todo/progress) 먼저 main에 커밋
+- [ ] 2. 새 브랜치 `feature/dark-mode` 만들기
+- [ ] 3. (결정에 따라) `.gitignore` 수정 / 전화번호 처리
+- [ ] 4. `portfolio/index.html` 다크 배경 적용 (수정 전 `.bak` 백업)
+- [ ] 5. 스크린샷으로 PC·휴대폰 확인 → 브라우저로 열어 보여주기
+- [ ] 6. 확인되면 main에 머지 → GitHub push → 저장소에서 확인 → progress 기록

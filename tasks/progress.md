@@ -52,3 +52,9 @@
 - winget으로 `GitHub.cli` 2.103.3 설치 → `C:\Program Files\GitHub CLI\gh.exe`
 - `gh --version` 실행 확인함. 로그인(`gh auth login`)은 아직 안 함
 - `gh auth login` 완료 → 계정 wewunh04, 프로토콜 HTTPS, 토큰은 윈도우 보안 저장소(keyring)에 보관
+
+## 2026-11-06 — claude-workspace GitHub 업로드
+- 비공개 저장소: https://github.com/wewunh04/claude-workspace (main 브랜치, 커밋 "Initial setup")
+- `.gitignore` 작성: 비밀 키 패턴 + 개인정보 파일(resume.pdf, portfolio/, downloads-move-log.csv) + *.bak 제외
+- README.md 정리 (기존본 → README.md.bak), progress.md 전화번호 마스킹
+- 업로드 전 민감정보 재검사 통과, GitHub에서 PRIVATE·파일 11개 확인함
