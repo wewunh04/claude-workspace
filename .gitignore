@@ -19,8 +19,7 @@ credentials*
 # ─────────────────────────────────────────
 # 강의 샘플 이력서 (이메일 워터마크)
 docs/resume.pdf
-# 전화번호 포함
-portfolio/
+# (portfolio/는 전화번호를 가린 뒤 2026-11-06부터 업로드함)
 # 다운로드 파일 이름 목록 (학번·실명 포함)
 tasks/downloads-move-log.csv
 
