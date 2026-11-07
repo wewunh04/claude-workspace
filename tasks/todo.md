@@ -187,3 +187,28 @@
 ### ⚠️ 알아둘 것
 - 배포하면 포트폴리오 페이지가 **인터넷에 공개**됨 (이름 은호, 전주대학교 회계세무학과, 예시 경력 등)
 - Root Directory를 `portfolio`로 지정하면 CLAUDE.md·SECURITY.md 등 다른 파일은 공개되지 않음
+
+---
+
+## 2026-11-08 — 포트폴리오 방명록 (Supabase)  ✅
+- Supabase 프로젝트: fgkztmdbonqhppgsacqa / anon key: eyJhbGci*** (공개용 키, 값은 .env.local에만)
+
+### 단계
+- [x] 1. `supabase/messages.sql` 작성 — messages(id, name, content, created_at) + 글자 수 제한 + RLS(누구나 읽기·쓰기, 수정·삭제 불가)
+- [x] 2. 👤 은호: Supabase 대시보드 → SQL Editor 에 붙여 넣고 Run
+- [x] 3. `portfolio/.env.local` 에 URL·anon key 저장 + 루트 `.gitignore`·`.vercelignore` 에 추가
+- [x] 4. `portfolio/scripts/gen-config.mjs` — .env.local → config.js 생성 (config.js도 git 제외)
+- [x] 5. `index.html` 맨 아래(연락처 다음)에 방명록 폼 + 목록 UI (수정 전 .bak 백업)
+- [x] 6. 로컬 테스트 준비: `start-local.ps1` 한 번 실행 → http://localhost:5500 열림
+- [x] 7. 테스트: 읽기 OK / 수정·삭제는 막히는지 / (OK 받으면) 테스트 글 1개 작성 → 대시보드에서 삭제
+- [x] 8. progress 기록 (GitHub 업로드·배포는 하지 않음)
+
+---
+
+## 2026-11-08 — 방명록 배포 사이트 반영
+- [ ] 1. `gen-config.mjs`에 배포용 모드 추가: `dist/` 폴더에 index.html + config.js 만 담기 (나머지 파일은 공개 안 됨)
+- [ ] 2. `vercel.json`에 빌드 명령·출력 폴더 지정, `dist/`는 git 제외
+- [ ] 3. 로컬에서 빌드 시험 (환경변수 방식 + 키 없을 때 실패하는지)
+- [ ] 4. 👤 은호: Vercel → claude-workspace-portfolio → Settings → Environment Variables 에 SUPABASE_URL, SUPABASE_ANON_KEY 추가
+- [ ] 5. 커밋 → GitHub push → 자동 배포
+- [ ] 6. 배포 사이트에서 방명록 동작 + CLAUDE.md 등 404 확인 → progress 기록

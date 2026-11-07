@@ -70,3 +70,11 @@
 - `portfolio/vercel.json`(깔끔한 주소·보안 헤더), `.vercelignore`(*.bak·DEPLOY.md 배포 제외) 추가
 - 링크 미리보기(description·og) + 탭 아이콘 추가
 - `portfolio/DEPLOY.md` 배포 안내서 — 핵심: Vercel Root Directory = `portfolio`
+
+## 2026-11-08 — 포트폴리오 방명록 (Supabase) — 로컬까지만
+- `supabase/messages.sql`: messages(id, name, content, created_at) + 글자 수 제한 + RLS(읽기·쓰기 누구나, 수정·삭제·작성시간 조작 불가) — 은호가 SQL Editor에서 실행
+- `portfolio/.env.local`(anon key, eyJhbGci***) → `scripts/gen-config.mjs` → `config.js` (둘 다 git·vercel 제외, service_role 키면 생성 거부)
+- `index.html` 맨 아래 방명록 폼+목록, 메뉴에 "방명록" (백업: index.html.before-guestbook.bak)
+- `start-local.ps1` → http://localhost:5500 — PowerShell 5.1은 BOM 없는 UTF-8을 CP949로 읽어 한글이 깨짐 → BOM 넣어 해결
+- 테스트 통과: 읽기 200 / 쓰기 201 / 수정·삭제·시간조작 401 / 501자 400. 테스트 글 id=2 남아 있음 → 대시보드에서 삭제 필요
+- GitHub 업로드·배포 안 함

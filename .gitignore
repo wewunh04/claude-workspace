@@ -40,3 +40,13 @@ venv/
 desktop.ini
 Thumbs.db
 .DS_Store
+
+# ─────────────────────────────────────────
+# 🔑 방명록(Supabase) 연결 정보
+# ─────────────────────────────────────────
+.env.local
+.env*.local
+portfolio/config.js
+
+# 배포용 빌드 결과 (Vercel이 매번 새로 만듦)
+portfolio/dist/

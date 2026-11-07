@@ -579,10 +579,129 @@
       }
     }
 
-    @media (max-width: 380px) {
+    @media (max-width: 420px) {
       nav .nav-extra {
         display: none;
       }
+    }
+
+    /* 화면엔 안 보이지만 화면 읽기 프로그램은 읽는 글자 */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    /* ── 방명록 ── */
+    .gb-form {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 28px;
+      display: grid;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .gb-form input,
+    .gb-form textarea {
+      width: 100%;
+      font: inherit;
+      font-size: 16px; /* 16px 미만이면 아이폰에서 자동 확대됨 */
+      color: var(--text);
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px;
+      transition: border-color .2s;
+    }
+
+    .gb-form input { max-width: 280px; }
+
+    .gb-form textarea {
+      resize: vertical;
+      min-height: 96px;
+    }
+
+    .gb-form input:focus,
+    .gb-form textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .gb-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .gb-count {
+      font-size: 13px;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .gb-form .btn[disabled] {
+      opacity: .5;
+      cursor: wait;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .gb-status {
+      font-size: 14px;
+      color: var(--muted);
+      min-height: 1.4em;
+    }
+
+    .gb-status.error { color: #fca5a5; }
+    .gb-status.ok { color: var(--accent); }
+
+    .gb-list {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .gb-item {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px 20px;
+      background: var(--surface);
+    }
+
+    .gb-item .gb-meta {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .gb-item .gb-name { font-weight: 700; }
+
+    .gb-item time {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .gb-item .gb-text {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .gb-empty {
+      color: var(--muted);
+      text-align: center;
+      padding: 24px 0;
+    }
+
+    @media (max-width: 600px) {
+      .gb-form { padding: 22px 18px; }
+      .gb-form input { max-width: none; }
     }
   </style>
   <script>document.documentElement.classList.add('js');</script>
@@ -596,8 +715,9 @@
       <ul>
         <li class="nav-extra"><a href="#skills">스킬</a></li>
         <li><a href="#projects">프로젝트</a></li>
-        <li><a href="#experience">경력</a></li>
+        <li class="nav-extra"><a href="#experience">경력</a></li>
         <li><a href="#contact">연락처</a></li>
+        <li><a href="#guestbook">방명록</a></li>
       </ul>
     </div>
   </nav>
@@ -797,7 +917,35 @@
     </div>
   </section>
 
+  <section id="guestbook">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="eyebrow">Guestbook</div>
+        <h2>방명록</h2>
+      </div>
+
+      <form class="gb-form reveal" id="gb-form" novalidate>
+        <label class="sr-only" for="gb-name">이름</label>
+        <input id="gb-name" name="name" type="text" maxlength="30" placeholder="이름 (30자까지)" autocomplete="nickname" required>
+        <label class="sr-only" for="gb-content">메시지</label>
+        <textarea id="gb-content" name="content" maxlength="500" placeholder="한마디 남겨 주세요 (500자까지)" required></textarea>
+        <div class="gb-row">
+          <span class="gb-count" id="gb-count">0 / 500</span>
+          <button class="btn primary" id="gb-submit" type="submit">남기기</button>
+        </div>
+        <p class="gb-status" id="gb-status" role="status" aria-live="polite"></p>
+      </form>
+
+      <ul class="gb-list" id="gb-list" aria-live="polite">
+        <li class="gb-empty">불러오는 중…</li>
+      </ul>
+    </div>
+  </section>
+
   <footer>© 2026 박*호</footer>
+
+  <!-- 방명록 연결 정보: scripts/gen-config.mjs 가 .env.local 로부터 만들어요 (GitHub 제외) -->
+  <script src="config.js" onerror="window.GUESTBOOK_CONFIG = null"></script>
 
   <script>
     // 스크롤하면 내용이 서서히 나타나는 효과
@@ -812,6 +960,112 @@
     } else {
       items.forEach((el) => el.classList.add('show'));
     }
+
+    // ── 방명록 (Supabase REST API) ──
+    (() => {
+      const cfg = window.GUESTBOOK_CONFIG;
+      const form = document.getElementById('gb-form');
+      const nameEl = document.getElementById('gb-name');
+      const contentEl = document.getElementById('gb-content');
+      const countEl = document.getElementById('gb-count');
+      const submitEl = document.getElementById('gb-submit');
+      const statusEl = document.getElementById('gb-status');
+      const listEl = document.getElementById('gb-list');
+      const COOLDOWN_MS = 30 * 1000; // 같은 브라우저에서 30초에 한 번만 (도배 방지)
+
+      const setStatus = (msg, type = '') => {
+        statusEl.textContent = msg;
+        statusEl.className = 'gb-status' + (type ? ' ' + type : '');
+      };
+      const showEmpty = (msg) => {
+        listEl.replaceChildren();
+        const li = document.createElement('li');
+        li.className = 'gb-empty';
+        li.textContent = msg;
+        listEl.append(li);
+      };
+
+      if (!cfg || !cfg.url || !cfg.anonKey) {
+        showEmpty('방명록 준비 중이에요.');
+        form.querySelectorAll('input, textarea, button').forEach((el) => (el.disabled = true));
+        return;
+      }
+
+      const api = `${cfg.url}/rest/v1/messages`;
+      const headers = { apikey: cfg.anonKey, Authorization: `Bearer ${cfg.anonKey}` };
+      const fmt = new Intl.DateTimeFormat('ko-KR', {
+        year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Seoul',
+      });
+
+      async function load() {
+        try {
+          const res = await fetch(`${api}?select=id,name,content,created_at&order=created_at.desc&limit=50`, { headers });
+          if (!res.ok) throw new Error(res.status);
+          const rows = await res.json();
+          if (!rows.length) return showEmpty('아직 남겨진 글이 없어요. 첫 글을 남겨 주세요!');
+          listEl.replaceChildren(...rows.map((r) => {
+            // textContent 로만 넣어서, 글에 코드가 들어 있어도 실행되지 않음
+            const li = document.createElement('li');
+            li.className = 'gb-item';
+            const meta = document.createElement('div');
+            meta.className = 'gb-meta';
+            const name = document.createElement('span');
+            name.className = 'gb-name';
+            name.textContent = r.name;
+            const time = document.createElement('time');
+            time.dateTime = r.created_at;
+            time.textContent = fmt.format(new Date(r.created_at));
+            meta.append(name, time);
+            const text = document.createElement('p');
+            text.className = 'gb-text';
+            text.textContent = r.content;
+            li.append(meta, text);
+            return li;
+          }));
+        } catch (e) {
+          showEmpty('방명록을 불러오지 못했어요. 잠시 후 다시 시도해 주세요.');
+        }
+      }
+
+      contentEl.addEventListener('input', () => {
+        countEl.textContent = `${contentEl.value.length} / 500`;
+      });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = nameEl.value.trim();
+        const content = contentEl.value.trim();
+        if (!name) { setStatus('이름을 적어 주세요.', 'error'); nameEl.focus(); return; }
+        if (!content) { setStatus('메시지를 적어 주세요.', 'error'); contentEl.focus(); return; }
+
+        let last = 0;
+        try { last = Number(localStorage.getItem('gb-last')) || 0; } catch {}
+        const wait = Math.ceil((last + COOLDOWN_MS - Date.now()) / 1000);
+        if (wait > 0) { setStatus(`${wait}초 뒤에 다시 남길 수 있어요.`, 'error'); return; }
+
+        submitEl.disabled = true;
+        setStatus('남기는 중…');
+        try {
+          const res = await fetch(api, {
+            method: 'POST',
+            headers: { ...headers, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+            body: JSON.stringify({ name, content }),
+          });
+          if (!res.ok) throw new Error(res.status);
+          try { localStorage.setItem('gb-last', String(Date.now())); } catch {}
+          form.reset();
+          countEl.textContent = '0 / 500';
+          setStatus('남겨 주셔서 고마워요! 🙌', 'ok');
+          await load();
+        } catch (err) {
+          setStatus('저장하지 못했어요. 잠시 후 다시 시도해 주세요.', 'error');
+        } finally {
+          submitEl.disabled = false;
+        }
+      });
+
+      load();
+    })();
   </script>
 </body>
 

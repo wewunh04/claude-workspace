@@ -5,3 +5,8 @@
 
 # 배포 안내서 (나만 보는 문서)
 DEPLOY.md
+
+# 로컬 환경변수 · 로컬 테스트 스크립트
+.env.local
+.env*.local
+start-local.ps1
